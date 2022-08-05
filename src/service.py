@@ -67,11 +67,10 @@ class Model(object):
         with open(data_file, "w") as f:
             f.write("smiles"+os.linesep)
             for smiles in smiles_list:
-                f.write(smiles+os.linesep)
-        run_file = os.path.join(tmp_folder, self.RUN_FILE)
+                f.write(smiles+os.linesep)        run_file = os.path.join(tmp_folder, self.RUN_FILE)
         with open(run_file, "w") as f:
             lines = [
-                "bash {0}/run_predict.sh {0} {1} {2}".format( # <-- EDIT: match method name (run_predict.sh, run_calculate.sh, etc.)
+                "bash {0}/pred_herg.py {0} {1} {2}".format( # <-- EDIT: match method name (run_predict.sh, run_calculate.sh, etc.)
                     self.framework_dir,
                     data_file,
                     output_file
