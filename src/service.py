@@ -71,7 +71,7 @@ class Model(object):
         run_file = os.path.join(tmp_folder, self.RUN_FILE)
         with open(run_file, "w") as f:
             lines = [
-                "python {0}/grover/main.py {1} {2}".format( # <-- EDIT: match method name (run_predict.sh, run_calculate.sh, etc.)
+                "python {0}/pred_herg.py {1} {2}".format(
                     self.framework_dir,
                     data_file,
                     output_file
@@ -91,7 +91,7 @@ class Model(object):
             for r in reader:
                 R += [{"outcomes": [Float(x) for x in r[1:]]}] # <-- EDIT: Modify according to type of output (Float, String...)
         meta = {
-            "outcome": h
+            "outcomes": h
         }
         result = {
             "result": R,
