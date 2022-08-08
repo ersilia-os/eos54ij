@@ -14,7 +14,7 @@ df_predictions = pd.DataFrame(columns=['SMILES','potential_cardiotoxic_plus_conf
 
 # Using readlines()
 input_file = open(sys.argv[1], 'r')
-Lines = input_file.readlines()
+Lines = input_file.readlines()[1:]
   
 for input_smiles in Lines:
     input_smiles = input_smiles.strip()
