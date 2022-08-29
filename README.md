@@ -1,16 +1,16 @@
-# Model title
+# Cardiac Toxicity Prediction
 ## Model identifiers
-- Slug:
-- Ersilia ID: 
-- Tags: 
+- Slug: pred-herg
+- Ersilia ID: eos54ij
+- Tags: Cardiotoxicity, hERG
 
 # Model description
-Short description of the model in one or two sentences.
-- Input:
-- Output: {unit and description of output) 
-- Model type: (Regression or Classification)
-- Training set: (number of compounds and link to the training data)
-- Mode of training: (is it pretrained? that is were the checkpoints downloaded and used to train the model? or is it retrained? that is trained from scratch with an updated data)
+Pred-hERG is a web-accessible computational tool for predicting cardiac toxicity.
+- Input: SMILES
+- Output: hERG (Toxicity) 
+- Model type: Classification
+- Training set: 5,984 (http://labmol.farmacia.ufg.br/predhergmorein-formation/).
+- Mode of training: Pretrained
 
 # Source code
 Cite the source publication.
@@ -21,8 +21,8 @@ Cite the source publication.
 State the licences used which are GPL v3 license used by Ersilia and the license used by the source code, if any exists. Use [this guide]() on how to license new models to be incorporated into Ersilia's model hub 
 
 # History 
-- State the date when the model was downloaded and incorporated into Ersilia.
-- List any essential steps/modifications to the original code
+- Online
+- Model was incorporated to Ersilia on 8/5/2022
 
 # About us
 The [Ersilia Open Source Initiative](https://ersilia.io) is a Non Profit Organization ([1192266](https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5170657/full-print)) with the mission is to equip labs, universities and clinics in LMIC with AI/ML tools for infectious disease research.
