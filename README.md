@@ -23,6 +23,9 @@ Pred-hERG is a deep neural network trained on a ChEMBL based dataset of hERG exp
 * [Source Code](http://predherg.labmol.com.br/)
 * Ersilia contributor: [Amna-28](https://github.com/Amna-28)
 
+## Ersilia model URLs
+* [GitHub](https://github.com/ersilia-os/eos54ij)
+
 ## Citation
 
 If you use this model, please cite the [original authors](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5720373/pdf/nihms854187.pdf) of the model and the [Ersilia Model Hub](https://github.com/ersilia-os/ersilia/blob/master/CITATION.cff).
