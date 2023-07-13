@@ -1,0 +1,91 @@
+name: Local Model Test on push
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+
+jobs:
+  test:
+    if: ${{ github.repository != 'ersilia-os/eos-template' && contains(github.event.head_commit.message, 'local test') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout persist credentials
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # pin@v3.5.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          lfs: 'true'
+      
+      - name: Add conda to system path
+        run: echo $CONDA/bin >> $GITHUB_PATH
+      
+      - name: Source conda
+        run: source $CONDA/etc/profile.d/conda.sh
+
+      - name: Install dependencies
+        run: |
+          source activate
+          conda init
+          conda install git-lfs -c conda-forge
+          git-lfs install
+          conda install gh -c conda-forge
+
+      - name: Install ersilia
+        run: |
+          source activate
+          python --version
+          echo "After conda init"
+          conda init
+          python -m pip install git+https://github.com/ersilia-os/ersilia.git
+  
+      - name: Fetch, Serve and predict output of Model 
+        env:
+          MODEL_ID: ${{ github.event.repository.name }}
+        run: |
+          source activate
+          echo "Sample model id selected: $MODEL_ID"
+          ersilia -v fetch $MODEL_ID --repo_path .
+          ersilia -v serve $MODEL_ID
+          ersilia sample -n 5 -f input.csv
+          ersilia -v api -i input.csv
+
+      - name: Sample an input.csv with a single input
+        run: |
+          echo "Executing ersilia sample -n 1 -f input.csv"
+          time ersilia sample -n 1 -f input.csv
+
+      - name: Measure command execution time to predict a single input
+        run: |
+          echo "Executing ersilia -v api -i input.csv"
+          time ersilia -v api -i input.csv
+
+      - name: Sample an input.csv with 10 inputs
+        run: |
+          echo "Executing ersilia sample -n 10 -f input.csv"
+          time ersilia sample -n 10 -f input.csv
+
+      - name: Measure command execution time to predict 10 inputs
+        run: |
+          echo "Executing ersilia -v api -i input.csv"
+          time ersilia -v api -i input.csv
+
+      - name: Sample an input.csv with 100 inputs
+        run: |
+          echo "Executing ersilia sample -n 100 -f input.csv"
+          time ersilia sample -n 100 -f input.csv
+
+      - name: Measure command execution time to predict 100 inputs
+        run: |
+          echo "Executing ersilia -v api -i input.csv"
+          time ersilia -v api -i input.csv
+
+      - name: Close ersilia
+        run: ersilia close
+          
+      - name: Upload log output
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb #pin v3.1.1
+        with:
+          name: debug-logs
+          retention-days: 1
+          path: /home/runner/eos/console.log
