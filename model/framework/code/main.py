@@ -23,6 +23,7 @@ for input_smiles in Lines:
     soup = BeautifulSoup(r.text, features = 'html.parser')
     Table = soup.find('table')
 
+    print(Table)
 
     d = Table.text.split('\n')
     d = [name for name in d if name.strip()]
